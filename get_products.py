@@ -2,7 +2,7 @@ import requests
 
 
 
-def get_products_from_api(page, category_name):
+def get_products_from_api(page, category_name, page_size=20):
 
     url = "https://fr.openfoodfacts.org/cgi/search.pl"
     params = {
@@ -13,7 +13,7 @@ def get_products_from_api(page, category_name):
         "tag_1": "A",
         "json": "true",
         "fields": "product_name_fr,id,stores,nutriscore_grade,url",
-        "page_size": 20,
+        "page_size": page_size,
         "page": page
         }
 

@@ -8,14 +8,14 @@ from store import Store
 def main():
 
     stores_list = []
-    def load_data(categories):
+    def load_data(category):
 
         number_of_product = 0
         page = 1
 
         while number_of_product < 50:
 
-            products = get_products_from_api(page, categories)
+            products = get_products_from_api(page, category)
 
             for product in products:
                 product_name = product.get("product_name_fr")
@@ -23,15 +23,7 @@ def main():
                 nutriscore = product.get("nutriscore_grade")
                 link = product.get("url")
                 stores = product.get("stores")
-                if not product_name:
-                    continue
-                elif len(product_name) > 80:
-                    continue
-                elif not nutriscore:
-                    continue
-                elif not link:
-                    continue
-                elif not stores:
+                if not product_name or len(product_name) > 80 or not nutriscore or not link or not stores:
                     continue
                 else:
                     Product.add(Product, product_name, barcode, nutriscore, link)

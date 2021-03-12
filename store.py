@@ -1,5 +1,6 @@
 from mysql_code import cnx, cursor
 
+
 class Store:
     
     def __init__(self):
@@ -25,6 +26,7 @@ class Store:
                     result.add(key)
                     break
         return result
+
 
     @staticmethod
     def add(stores_liste):

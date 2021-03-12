@@ -36,12 +36,12 @@ ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS `Product_category`
 (
-    `id_category` INT UNSIGNED NOT NULL,
     `id_product` INT UNSIGNED NOT NULL,
-    FOREIGN KEY (id_category)
-    REFERENCES Category(id),
+    `id_category` INT UNSIGNED NOT NULL,
     FOREIGN KEY (id_product)
     REFERENCES Product(id),
+    FOREIGN KEY (id_category)
+    REFERENCES Category(id),
     PRIMARY KEY (id_product, id_category)
 )
 ENGINE=INNODB;
