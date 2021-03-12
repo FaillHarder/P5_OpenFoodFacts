@@ -24,3 +24,19 @@ add_product_category = ("INSERT INTO product_category"
 add_product_store = ("INSERT INTO product_store"
                         "(id_product, id_store)"
                         "VALUES (%s, %s)")
+
+
+def sql_select_las_product_id():
+
+        req = "SELECT max(id) FROM product;"
+        cursor.execute(req)
+        result = cursor.fetchone()
+        return result[0]
+
+
+def sql_select_id(table, name):
+        
+        req = "SELECT id FROM {} WHERE name='{}';".format(table, name)
+        cursor.execute(req)
+        result = cursor.fetchone()
+        return result[0]

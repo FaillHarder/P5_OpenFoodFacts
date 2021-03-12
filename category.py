@@ -9,7 +9,7 @@ class Category:
 
 
     @staticmethod
-    def add(categories):
+    def add_in_database(categories):
 
         for req in [f"INSERT INTO category (name) VALUES ('{categorie}')" for categorie in categories]:
             cursor.execute(req)

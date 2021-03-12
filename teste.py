@@ -8,7 +8,7 @@ add_product = ("INSERT INTO product"
 
 
 
-class Mysql():
+class Mysql_shortcut():
 
         @staticmethod
         def sql_select_las_product_id():
