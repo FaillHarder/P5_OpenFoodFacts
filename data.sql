@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `Product`
     `name` VARCHAR(80) NOT NULL,
     `nutriscore` char(1) NOT NULL,
     `barcode` char(13),
-    `link` VARCHAR(130) NOT NULL,
+    `link` VARCHAR(120) NOT NULL,
     `favorite` BOOLEAN,
     PRIMARY KEY (id)
 )
