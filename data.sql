@@ -6,7 +6,7 @@ USE `Alimentation`;
 CREATE TABLE IF NOT EXISTS `Category`
 (
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(500) NOT NULL,
+    `name` VARCHAR(50) NOT NULL,
     PRIMARY KEY (id)
 )
 ENGINE=INNODB;
@@ -36,12 +36,12 @@ ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS `Product_category`
 (
-    `id_category` INT UNSIGNED NOT NULL,
     `id_product` INT UNSIGNED NOT NULL,
-    FOREIGN KEY (id_category)
-    REFERENCES Category(id),
+    `id_category` INT UNSIGNED NOT NULL,
     FOREIGN KEY (id_product)
     REFERENCES Product(id),
+    FOREIGN KEY (id_category)
+    REFERENCES Category(id),
     PRIMARY KEY (id_product, id_category)
 )
 ENGINE=INNODB;
@@ -57,5 +57,3 @@ CREATE TABLE IF NOT EXISTS `Product_store`
     PRIMARY KEY (id_product, id_store)
 )
 ENGINE=INNODB;
-
-
