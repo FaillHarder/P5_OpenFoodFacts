@@ -1,4 +1,4 @@
-CATEGORIES = ["Pizzas", "Biscuits", "Petit-déjeuners"]
+CATEGORIES = ["Pizzas", "Biscuits", "Petit-déjeuners", "Jambons", "Apéritif"]
 
 STORES_DICT = {
     "Magasin U": [
@@ -28,3 +28,10 @@ STORES_DICT = {
     "Franprix": ['franprix'],
     "Dia": ['dia']
 }
+
+MAIN_MENU = "MENU PRINCIPAL"
+CATEGORY_MENU = "CATEGORIES"
+PRODUCT_MENU = "PRODUITS"
+SUBSTITUTE_MENU = "ALIMENT DE SUBSTITUTION"
+SEPARATOR = ("#")
+LINE_LENGTH = 90

@@ -33,6 +33,25 @@ add_product_store = (
                     "VALUES (%s, %s)"
                     )
 
+get_category = ("SELECT * FROM category ORDER BY id")
+
+get_product = ("SELECT id, name FROM product ORDER BY id")
+
+get_product_by_category = (
+                            "SELECT id, name FROM product "
+                            "INNER JOIN product_category "
+                            "ON product.id = product_category.id_product "
+                            "WHERE product_category.id_category = '{}';"
+                            )
+
+get_product_substitute = (
+                            "SELECT product.name, barcode, nutriscore, link, store.name "
+                            "FROM product "
+                            "INNER JOIN product_store "
+                            "ON product.id = product_store.id_product "
+                            "INNER JOIN store "
+                            "ON store.id = product_store.id_store; "
+                            )
 
 def sql_select_last_product_id():
 
