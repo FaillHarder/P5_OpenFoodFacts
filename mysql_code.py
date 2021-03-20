@@ -50,7 +50,9 @@ get_product_substitute = (
                             "INNER JOIN product_store "
                             "ON product.id = product_store.id_product "
                             "INNER JOIN store "
-                            "ON store.id = product_store.id_store; "
+                            "ON store.id = product_store.id_store "
+                            "WHERE product.nutriscore < '{}' "
+                            "AND store.id = {};"
                             )
 
 def sql_select_last_product_id():

@@ -20,11 +20,14 @@ def product(get_product_by_category, user_choice):
 
 
 
-def sub():
+def sub(nutriscore, category_id):
 
-    liste = []
-    cursor.execute(get_product_substitute)
+    cursor.execute(get_product_substitute.format(nutriscore, category_id))
     substitute = cursor.fetchall()
     for name, barcode, nutri, link, store in substitute:
-        print(name)
-sub()
+        print(name, nutri)
+
+nutri = 'c'
+id = 1
+sub(nutri, 1)
+

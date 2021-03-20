@@ -73,11 +73,6 @@ class Controller:
                     Menu.product_menu(PRODUCT_MENU, SEPARATOR, LINE_LENGTH)
                     cls.product(get_product_by_category, user_choice)
 
-            # elif state == "product":
-            #     Menu.product_menu(PRODUCT_MENU, SEPARATOR, LINE_LENGTH)
-            #     user_choice = cls.choice_number(0, 5)
-            #     if user_choice == 0:
-            #         state = "main_menu"
 
             elif state == "substitute_menu":
                 Menu.substitute_menu(SUBSTITUTE_MENU, SEPARATOR, LINE_LENGTH)
