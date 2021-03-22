@@ -2,10 +2,12 @@ class Menu:
 
     @staticmethod
     def display_category(id, name):
+        
         print("|| {} ||  {}".format(id, name))
 
     @staticmethod
     def display_product(id, name):
+
         print("|| {} ||  {}".format(id, name))
 
     @staticmethod

@@ -38,7 +38,7 @@ get_category = ("SELECT * FROM category ORDER BY id")
 get_product = ("SELECT id, name FROM product ORDER BY id")
 
 get_product_by_category = (
-                            "SELECT id, name FROM product "
+                            "SELECT id, name, nutriscore FROM product "
                             "INNER JOIN product_category "
                             "ON product.id = product_category.id_product "
                             "WHERE product_category.id_category = '{}';"
@@ -51,8 +51,10 @@ get_product_substitute = (
                             "ON product.id = product_store.id_product "
                             "INNER JOIN store "
                             "ON store.id = product_store.id_store "
+                            "INNER JOIN product_category "
+                            "ON product.id = product_category.id_product "
                             "WHERE product.nutriscore < '{}' "
-                            "AND store.id = {};"
+                            "AND product_category.id_category = {};"
                             )
 
 def sql_select_last_product_id():

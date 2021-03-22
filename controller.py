@@ -4,7 +4,7 @@ from constants import (
                         PRODUCT_MENU, SUBSTITUTE_MENU
                         )
 from view import Menu
-from mysql_code import cursor, get_category, get_product_by_category
+from mysql_code import cursor, get_category, get_product_by_category, get_product_substitute
 
 
 class Controller:
@@ -39,13 +39,31 @@ class Controller:
     @classmethod
     def product(cls, get_product_by_category, user_choice):
 
+        id_product = {}
+        id_category = user_choice
         cursor.execute(get_product_by_category.format(user_choice))
         products = cursor.fetchall()
-        i = 1
-        for id, name in products:
-            Menu.display_product(i, name)
+        i = 0
+        for id, name, nutriscore in products:
             i += 1
-        cls.choice_number(0, i)
+            Menu.display_product(i, name)
+            id_product[i] = nutriscore
+
+        product_choice = cls.choice_number(0, i)
+
+        substitute_list = []
+        cursor.execute(get_product_substitute.format(id_product[product_choice], id_category))
+        substitute = cursor.fetchall()
+        for name, barcode, nutriscore, link, store in substitute:
+            substitute_list.append({
+                                    "Nom du produit": name,
+                                    "Code-barre": barcode,
+                                    "Score nutritionel": nutriscore,
+                                    "Lien": link,
+                                    "Vendu à": store
+                                    })
+        return substitute_list
+
 
     @classmethod
     def selection(cls):
@@ -69,9 +87,9 @@ class Controller:
                 if user_choice == 0:
                     state = "main_menu"
                 elif user_choice > 0:
-                    state = "product"
                     Menu.product_menu(PRODUCT_MENU, SEPARATOR, LINE_LENGTH)
                     cls.product(get_product_by_category, user_choice)
+                    
 
 
             elif state == "substitute_menu":
