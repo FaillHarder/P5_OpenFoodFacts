@@ -25,3 +25,4 @@ def add_product_in_database(products_list):
             values = [id_product, id_store]
             cursor.execute(add_product_store, values)
     cnx.commit()
+    print("Les données ont été remplacé par de nouvelles données")

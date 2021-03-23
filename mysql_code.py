@@ -44,18 +44,30 @@ get_product_by_category = (
                             "WHERE product_category.id_category = '{}';"
                             )
 
-get_product_substitute = (
-                            "SELECT product.name, barcode, nutriscore, link, store.name "
-                            "FROM product "
-                            "INNER JOIN product_store "
-                            "ON product.id = product_store.id_product "
-                            "INNER JOIN store "
-                            "ON store.id = product_store.id_store "
-                            "INNER JOIN product_category "
-                            "ON product.id = product_category.id_product "
-                            "WHERE product.nutriscore < '{}' "
-                            "AND product_category.id_category = {};"
-                            )
+get_substitute = (
+                "SELECT product.id, product.name, barcode, nutriscore, link, store.name "
+                "FROM product "
+                "INNER JOIN product_store "
+                "ON product.id = product_store.id_product "
+                "INNER JOIN store "
+                "ON store.id = product_store.id_store "
+                "INNER JOIN product_category "
+                "ON product.id = product_category.id_product "
+                "WHERE product.nutriscore < '{}' "
+                "AND product_category.id_category = {};"
+                )
+
+add_into_favorite = (
+                    "UPDATE product "
+                    "SET favorite = 1 "
+                    "WHERE product.id = {};"
+                    )
+
+get_favorite = (
+                "SELECT product.name, nutriscore, link "
+                "FROM product "
+                "WHERE favorite = 1;"
+                )
 
 def sql_select_last_product_id():
 

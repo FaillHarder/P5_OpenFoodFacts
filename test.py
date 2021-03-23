@@ -1,33 +1,17 @@
-from constants import (
-                        MAIN_MENU, SEPARATOR,
-                        CATEGORY_MENU, LINE_LENGTH,
-                        PRODUCT_MENU, SUBSTITUTE_MENU
-                        )
-from view import Menu
-from mysql_code import cursor, get_category, get_product_by_category, get_product_substitute
-
-
-def product(get_product_by_category, user_choice):
-
-    cursor.execute(get_product_by_category.format(user_choice))
-    products = cursor.fetchall()
-    i = 1
-    for id, name in products:
-        Menu.display_product(i, name)
-        i += 1
+from mysql_code import cnx, cursor, get_favorite
 
 
 
+get_favorite = (
+                "SELECT product.name, nutriscore, link "
+                "FROM product "
+                "WHERE favorite = 1;"
+                )
 
+def get_product_favorite(mysql_requet):
 
-def sub(nutriscore, category_id):
+    sub = cursor.execute(mysql_requet)
+    for prod in sub:
+        print(prod)
 
-    cursor.execute(get_product_substitute.format(nutriscore, category_id))
-    substitute = cursor.fetchall()
-    for name, barcode, nutri, link, store in substitute:
-        print(name, nutri)
-
-nutri = 'c'
-id = 1
-sub(nutri, 1)
-
+get_product_favorite(get_favorite)
