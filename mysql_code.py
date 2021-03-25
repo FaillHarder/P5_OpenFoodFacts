@@ -45,16 +45,16 @@ get_product_by_category = (
                             )
 
 get_substitute = (
-                "SELECT product.id, product.name, barcode, nutriscore, link, store.name "
-                "FROM product "
-                "INNER JOIN product_store "
-                "ON product.id = product_store.id_product "
-                "INNER JOIN store "
-                "ON store.id = product_store.id_store "
-                "INNER JOIN product_category "
-                "ON product.id = product_category.id_product "
-                "WHERE product.nutriscore < '{}' "
-                "AND product_category.id_category = {};"
+            "SELECT product.id, product.name, nutriscore, link, store.name "
+            "FROM product "
+            "INNER JOIN product_store "
+            "ON product.id = product_store.id_product "
+            "INNER JOIN store "
+            "ON store.id = product_store.id_store "
+            "INNER JOIN product_category "
+            "ON product.id = product_category.id_product "
+            "WHERE product.nutriscore < '{}' "
+            "AND product_category.id_category = {};"
                 )
 
 add_into_favorite = (

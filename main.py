@@ -12,7 +12,7 @@ def main():
     Category.add_in_database(CATEGORIES)
     Store.add_in_database(STORES_DICT)
     add_product_in_database(product_list)
-    Controller.selection()
+
 
 if __name__ == "__main__":
     main()

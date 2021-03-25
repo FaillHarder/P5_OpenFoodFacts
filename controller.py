@@ -1,7 +1,12 @@
 from constants import (
                         MAIN_MENU, SEPARATOR,
                         CATEGORY_MENU, LINE_LENGTH,
-                        PRODUCT_MENU, SUBSTITUTE_MENU
+                        PRODUCT_MENU, SUBSTITUTE_MENU,
+                        MAIN_SELECTION, CATEGORY_SELECTION,
+                        PRODUCT_SELECTION, SUBSTITUTE_SAVE_SELECTION,
+                        PROPOSED_SUBSTITUTE,
+                        SUBSTITUTE_MENU_SELECTION,
+                        NO_SUBSTITUTE_SELECTION, REGISTERED_SELECTION
                         )
 from view import Menu
 from mysql_code import (
@@ -62,12 +67,11 @@ class Controller:
         substitute_list = []
         cursor.execute(get_substitute.format(id_product[product_choice], id_category))
         substitute = cursor.fetchall()
-        for id, name, barcode, nutriscore, link, store in substitute:
+        for id, name, nutriscore, link, store in substitute:
             substitute_list.append({
                                     "id": id,
                                     "Nom du produit": name,
-                                    "Code-barre": barcode,
-                                    "Score nutritionnel": nutriscore,
+                                    "Score nutritionnel": nutriscore.title(),
                                     "Lien": link,
                                     "Vendu à": store
                                     })
@@ -85,7 +89,7 @@ class Controller:
         cursor.execute(requete_mysql)
         favorite = cursor.fetchall()
         for name, nutriscore, link in favorite:
-            Menu.display_favorite(name, nutriscore, link)
+            Menu.display_favorite(name, nutriscore.title(), link)
 
     @classmethod
     def selection(cls):
@@ -94,7 +98,8 @@ class Controller:
         while state != "quit":
 
             if state == "main_menu":
-                Menu.main_menu(MAIN_MENU, SEPARATOR, LINE_LENGTH)
+                Menu.display_menu(MAIN_MENU, SEPARATOR, LINE_LENGTH)
+                Menu.display_menu_selection(MAIN_SELECTION)
                 user_choice = cls.choice_number(0, 2)
                 if user_choice == 0:
                     state = "quit"
@@ -104,36 +109,39 @@ class Controller:
                     state = "substitute_menu"
 
             elif state == "category_menu":
-                Menu.category_menu(CATEGORY_MENU, SEPARATOR, LINE_LENGTH)
+                Menu.display_menu(CATEGORY_MENU, SEPARATOR, LINE_LENGTH)
+                Menu.display_menu_selection(CATEGORY_SELECTION)
                 user_choice = cls.category(get_category)
                 if user_choice == 0:
                     state = "main_menu"
                 elif user_choice > 0:
-                    Menu.product_menu(PRODUCT_MENU, SEPARATOR, LINE_LENGTH)
+                    Menu.display_menu(PRODUCT_MENU, SEPARATOR, LINE_LENGTH)
+                    Menu.display_menu_selection(PRODUCT_SELECTION)
                     substitute = cls.product_to_substitute(
                         get_product_by_category, user_choice
                         )
                     state = "substitute"
 
             elif state == "substitute":
-                Menu.substitute(SUBSTITUTE_MENU, SEPARATOR, LINE_LENGTH)
+                Menu.display_menu(PROPOSED_SUBSTITUTE, SEPARATOR, LINE_LENGTH)
                 try:
                     sub = choice(substitute)
                     for key, value in sub.items():
                         Menu.display_substitute(key, value)
+                    Menu.display_menu_selection(SUBSTITUTE_SAVE_SELECTION)
                     user_choice = cls.choice_number(0, 1)
                     if user_choice == 0:
                         state = "main_menu"
                     elif user_choice == 1:
                         cls.save_substitute(add_into_favorite, sub["id"])
-                        Menu.registered_product()
+                        Menu.display_menu_selection(REGISTERED_SELECTION)
                         choice_number = cls.choice_number(0, 1)
                         if choice_number == 0:
                             state = "main_menu"
                         elif choice_number == 1:
                             state = "quit"
                 except IndexError:
-                    Menu.no_substitute(SUBSTITUTE_MENU, SEPARATOR, LINE_LENGTH)
+                    Menu.display_menu_selection(NO_SUBSTITUTE_SELECTION)
                     user_choice = cls.choice_number(0, 1)
                     if user_choice == 0:
                         state = "main_menu"
@@ -141,11 +149,15 @@ class Controller:
                         state = "quit"
 
             elif state == "substitute_menu":
-                Menu.substitute_menu(SUBSTITUTE_MENU, SEPARATOR, LINE_LENGTH)
+                Menu.display_menu(SUBSTITUTE_MENU, SEPARATOR, LINE_LENGTH)
                 cls.get_product_favorite(get_favorite)
+                Menu.display_menu_selection(SUBSTITUTE_MENU_SELECTION)
                 user_choice = cls.choice_number(0, 1)
                 if user_choice == 0:
                     state = "main_menu"
                 elif user_choice == 1:
                     print("vous avez enregistré l'aliment de substitution.")
                     state = "main_menu"
+
+
+Controller.selection()
