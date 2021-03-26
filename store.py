@@ -9,6 +9,8 @@ class Store:
 
     @staticmethod
     def add_in_database(stores_liste):
+        """Function taking as parameter the stores dictionary.
+        Add each store to the store mysql table"""
 
         for req in [
             f"INSERT INTO store (name) VALUES ('{store}')"
