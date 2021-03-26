@@ -38,7 +38,7 @@ get_category = ("SELECT * FROM category ORDER BY id")
 get_product = ("SELECT id, name FROM product ORDER BY id")
 
 get_product_by_category = (
-                            "SELECT id, name, nutriscore FROM product "
+                            "SELECT name, nutriscore FROM product "
                             "INNER JOIN product_category "
                             "ON product.id = product_category.id_product "
                             "WHERE product_category.id_category = '{}';"
@@ -68,6 +68,7 @@ get_favorite = (
                 "FROM product "
                 "WHERE favorite = 1;"
                 )
+
 
 def sql_select_last_product_id():
 

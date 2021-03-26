@@ -29,6 +29,7 @@ STORES_DICT = {
     "Dia": ['dia']
 }
 
+# Display
 MAIN_MENU = "MENU PRINCIPAL"
 CATEGORY_MENU = "CATEGORIES"
 PRODUCT_MENU = "PRODUITS"
@@ -56,8 +57,7 @@ CATEGORY_SELECTION = {
 PRODUCT_SELECTION = {
                     "0": "",
                     "1": "Sélectionner un aliment.",
-                    "2": "",
-                    "3": "|| 0 ||  Retourner au menu principale."
+                    "2": ""
                         }
 
 SUBSTITUTE_SAVE_SELECTION = {

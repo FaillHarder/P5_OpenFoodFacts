@@ -8,6 +8,8 @@ class Category:
 
     @staticmethod
     def add_in_database(categories):
+        """Function taking as parameter the category list.
+        Add each category to the category mysql table"""
 
         for req in [
             f"INSERT INTO category (name) VALUES ('{categorie}')"
