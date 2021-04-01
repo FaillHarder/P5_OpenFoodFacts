@@ -1,7 +1,7 @@
 import requests
 
 
-def load_data(stores_dict, category_list, page_number, page_size=20):
+def get_data(category_list, stores_dict, page_number, page_size=20):
     """Function allowing to retrieve data from the OpenFoodFacts API.
     Take as parameters, store dictionary, food category,
     page number and page size. Return a dictionary list"""

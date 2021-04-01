@@ -14,6 +14,6 @@ class Category:
         for req in [
             f"INSERT INTO category (name) VALUES ('{categorie}')"
             for categorie in categories
-                ]:
+        ]:
             cursor.execute(req)
         cnx.commit()

@@ -23,7 +23,7 @@ class Product:
                 product["nutriscore"],
                 product["barcode"],
                 product["link"]
-                    ]
+            ]
             cursor.execute(add_product, data)
             id_product = sql_select_last_product_id()
             id_category = sql_select_id("category", product["category"])
@@ -35,3 +35,4 @@ class Product:
                 values = [id_product, id_store]
                 cursor.execute(add_product_store, values)
         cnx.commit()
+        print("Produits ajoutés à la base de données")

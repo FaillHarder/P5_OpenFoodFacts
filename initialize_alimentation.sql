@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `Product`
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(80) NOT NULL,
     `nutriscore` char(1) NOT NULL,
-    `barcode` char(13),
+    `barcode` VARCHAR(18),
     `link` VARCHAR(120) NOT NULL,
     `favorite` BOOLEAN,
     PRIMARY KEY (id)

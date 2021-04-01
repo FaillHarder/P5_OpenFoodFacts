@@ -15,6 +15,6 @@ class Store:
         for req in [
             f"INSERT INTO store (name) VALUES ('{store}')"
             for store in stores_liste
-                ]:
+        ]:
             cursor.execute(req)
         cnx.commit()
