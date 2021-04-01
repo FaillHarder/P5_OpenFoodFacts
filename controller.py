@@ -1,40 +1,48 @@
 from constants import (
-                        MAIN_MENU, SEPARATOR,
-                        CATEGORY_MENU, LINE_LENGTH,
-                        PRODUCT_MENU, SUBSTITUTE_MENU,
-                        MAIN_SELECTION, CATEGORY_SELECTION,
-                        PRODUCT_SELECTION, SUBSTITUTE_SAVE_SELECTION,
-                        PROPOSED_SUBSTITUTE,
-                        SUBSTITUTE_MENU_SELECTION,
-                        NO_SUBSTITUTE_SELECTION, REGISTERED_SELECTION
-                        )
-from view import Menu
+                    MAIN_MENU, SEPARATOR,
+                    CATEGORY_MENU, LINE_LENGTH,
+                    PRODUCT_MENU, SUBSTITUTE_MENU,
+                    MAIN_SELECTION, CATEGORY_SELECTION,
+                    PRODUCT_SELECTION, SUBSTITUTE_SAVE_SELECTION,
+                    PROPOSED_SUBSTITUTE,
+                    SUBSTITUTE_MENU_SELECTION,
+                    NO_SUBSTITUTE_SELECTION, REGISTERED_SELECTION
+)
 from mysql_code import (
-                        cnx, cursor, get_category,
-                        get_product_by_category,
-                        get_substitute,
-                        add_into_favorite,
-                        get_favorite
-                        )
+                    cnx, cursor, get_category,
+                    get_product_by_category,
+                    get_substitute,
+                    add_into_favorite,
+                    get_favorite
+)
+from view import Menu
 
+import os
 from random import choice
 
 
 class Controller:
 
     @staticmethod
+    def clear():
+        """Method to clean the terminal"""
+        os.system('cls')
+
+    @staticmethod
     def choice_number(min, max):
+        """Method input. Allows the user to make a selection"""
 
         while True:
 
             try:
                 x = int(input("Entrez votre sélection :"))
+                message = "Sélectionner un nombre entre {} et {}"
                 if x >= min and x <= max:
                     return x
                 else:
-                    print("Sélectionner un nombre entre {} et {}".format(min, max))
+                    print(message.format(min, max))
             except ValueError:
-                print("Sélectionner un nombre entre {} et {}".format(min, max))
+                print(message.format(min, max))
 
     @classmethod
     def category(cls, request_mysql):
@@ -55,7 +63,7 @@ class Controller:
     @classmethod
     def product_to_substitute(cls, request_mysql, category_choice):
         """Method taking the mysql request get_product_by_category
-        and the number returned by category() as arguments.
+        and the number returned by Controller.category() as arguments.
         She displays a product list from mysql product table, adds
         the nutriscore of each product in id_product dictionary and
         calls the choice méthode. Return product_choice (nutriscore
@@ -113,15 +121,20 @@ class Controller:
 
         cursor.execute(request_mysql)
         favorite = cursor.fetchall()
-        for name, nutriscore, link in favorite:
-            Menu.display_favorite(name, nutriscore.title(), link)
+        if not favorite:
+            print("Aucun aliment de substitution n'est encore enregisté.")
+        else:
+            for name, nutriscore, link in favorite:
+                Menu.display_favorite(name, nutriscore.title(), link)
 
     @classmethod
     def selection(cls):
+        """Méthod used to launch the program"""
 
         state = "main_menu"
         while state != "quit":
 
+            cls.clear()
             if state == "main_menu":
                 Menu.display_menu(MAIN_MENU, SEPARATOR, LINE_LENGTH)
                 Menu.display_menu_selection(MAIN_SELECTION)
@@ -172,6 +185,7 @@ class Controller:
                         state = "main_menu"
                     elif user_choice == 1:
                         cls.save_substitute(add_into_favorite, sub["id"])
+                        cls.clear()
                         Menu.display_menu_selection(REGISTERED_SELECTION)
                         choice_number = cls.choice_number(0, 1)
                         if choice_number == 0:
@@ -192,5 +206,4 @@ class Controller:
                 if user_choice == 0:
                     state = "main_menu"
                 elif user_choice == 1:
-                    print("Fin du programe.")
                     state = "quit"

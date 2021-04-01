@@ -28,6 +28,6 @@ class Menu:
     def display_favorite(name, nutri, link):
 
         print("Nom du produit : {},".format(name))
-        print("Valeur nutritionnel : {},".format(nutri.title()))
+        print("Valeur nutritionnelle : {},".format(nutri.title()))
         print("Lien : {}".format(link))
         print("")
