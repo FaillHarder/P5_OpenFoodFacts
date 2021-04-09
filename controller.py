@@ -29,20 +29,20 @@ class Controller:
         os.system('cls')
 
     @staticmethod
-    def choice_number(min, max):
+    def choice_number(a, b):
         """Method input. Allows the user to make a selection"""
 
         while True:
 
             try:
-                x = int(input("Entrez votre sélection :"))
                 message = "Sélectionner un nombre entre {} et {}"
-                if x >= min and x <= max:
+                x = int(input("Entrez votre sélection :"))
+                if x >= a and x <= b:
                     return x
                 else:
-                    print(message.format(min, max))
+                    print(message.format(a, b))
             except ValueError:
-                print(message.format(min, max))
+                print(message.format(a, b))
 
     @classmethod
     def category(cls, request_mysql):
@@ -80,9 +80,9 @@ class Controller:
             id_product[i] = nutriscore
 
         choice = cls.choice_number(1, i)
-        product_choice = id_product[choice]
+        product_nutriscore = id_product[choice]
 
-        return product_choice, id_category
+        return product_nutriscore, id_category
 
     @staticmethod
     def substitute(product_nutriscore, id_category):
